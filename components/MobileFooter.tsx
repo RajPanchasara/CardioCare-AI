@@ -92,7 +92,7 @@ export default function MobileFooter() {
                         <line x1="12" y1="20" x2="12" y2="4"></line>
                         <line x1="6" y1="20" x2="6" y2="14"></line>
                     </svg>
-                    <span className="text-[12px] font-medium">Data</span>
+                    <span className="text-[12px] font-medium">Analytics</span>
                 </Link>
 
                 <Link href="/predict" className={clsx("flex flex-col items-center gap-1 p-2 rounded-xl transition-all active:scale-90", pathname === "/predict" ? "text-primary" : "text-gray-400 hover:text-[var(--text-main)] active:text-primary")}>
@@ -122,3 +122,4 @@ export default function MobileFooter() {
         </div>
     );
 }
+

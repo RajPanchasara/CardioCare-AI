@@ -190,11 +190,9 @@ export default function Contact() {
                             </a>
                         </div>
                     </div>
-
-                    {/* Live Stats */}
-                    <StatsCounter />
                 </aside>
             </div>
         </>
     );
 }
+

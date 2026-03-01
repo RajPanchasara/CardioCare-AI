@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://img.shields.io/badge/CardioCare-AI-red?style=for-the-badge&logo=heart&logoColor=white" alt="CardioCare-AI" />
+  <img src="https://img.shields.io/badge/Cardio Care-AI-red?style=for-the-badge&logo=heart&logoColor=white" alt="CardioCare-AI" />
 </h1>
 
 <p align="center">

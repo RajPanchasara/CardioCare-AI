@@ -1,159 +1,227 @@
 import React from "react";
+import Link from "next/link";
+
+const FEATURES = [
+    { icon: "🎂", name: "Age", desc: "Years (18–100)", group: "Demographic" },
+    { icon: "⚧️", name: "Gender", desc: "Male / Female", group: "Demographic" },
+    { icon: "📏", name: "Height", desc: "Centimetres (120–250)", group: "Physical" },
+    { icon: "⚖️", name: "Weight", desc: "Kilograms (30–300)", group: "Physical" },
+    { icon: "💓", name: "Systolic BP", desc: "ap_hi — 60 to 250 mmHg", group: "Vitals" },
+    { icon: "💗", name: "Diastolic BP", desc: "ap_lo — 30 to 200 mmHg", group: "Vitals" },
+    { icon: "🩸", name: "Cholesterol", desc: "Normal / Above / Well Above", group: "Vitals" },
+    { icon: "🍬", name: "Glucose", desc: "Normal / Above / Well Above", group: "Vitals" },
+    { icon: "🚭", name: "Smoking", desc: "Yes / No", group: "Lifestyle" },
+    { icon: "🍷", name: "Alcohol", desc: "Yes / No", group: "Lifestyle" },
+    { icon: "🏃", name: "Physical Activity", desc: "Yes / No", group: "Lifestyle" },
+];
+
+const STEPS = [
+    { no: "01", icon: "📝", title: "Input", desc: "You fill in 11 clinical and lifestyle fields in the prediction form." },
+    { no: "02", icon: "✅", title: "Validate", desc: "Each field is checked for valid ranges and cross-field rules (e.g. systolic > diastolic)." },
+    { no: "03", icon: "⚙️", title: "Scale", desc: "Values are transformed using the same StandardScaler fitted on 70,000 training records." },
+    { no: "04", icon: "🤖", title: "Predict", desc: "The Gradient Boosting Classifier outputs a probability score and 3-tier risk classification." },
+];
+
+const METRICS = [
+    { label: "Accuracy", value: "73%", note: "On 21,000 held-out test records", color: "#e11d48" },
+    { label: "AUC-ROC", value: "0.80", note: "Area under the ROC curve", color: "#7c3aed" },
+    { label: "Precision (High Risk)", value: "77%", note: "Of predicted high-risk, 77% confirmed", color: "#0284c7" },
+    { label: "Recall (High Risk)", value: "65%", note: "65% of actual high-risk cases caught", color: "#059669" },
+];
 
 export default function Model() {
     return (
         <>
-            <header className="mb-8 md:mb-16 text-center animate-fade-in">
-                <span className="inline-block py-1 px-4 rounded-full bg-red-100 text-red-600 text-xs font-bold uppercase tracking-widest mb-4">Deep Transparency</span>
-                <h1 className="text-5xl font-black mb-4">Model Architecture & Transparency</h1>
-                <p className="text-xl text-secondary max-w-2xl mx-auto">A deep look into the Dataset, Preprocessing Pipeline,
-                    and the logic
-                    of the Gradient Boosting Classifier.</p>
+            {/* ── Header ───────────────────────────────────────────────────── */}
+            <header className="mb-10 md:mb-16 text-center animate-fade-in">
+                <span className="inline-block py-1 px-4 rounded-full bg-red-100 text-red-600 text-xs font-bold uppercase tracking-widest mb-4">
+                    System Transparency
+                </span>
+                <h1 className="text-5xl font-black mb-4">How CardioCare-AI Works</h1>
+                <p className="text-xl text-secondary max-w-2xl mx-auto">
+                    A clear, honest look at the dataset, algorithm, and methodology powering every prediction.
+                </p>
             </header>
 
-            {/* Pipeline Visual Flow */}
-            <section className="mb-10 md:mb-20">
-                <h2 className="text-2xl font-black mb-10 text-center">Inference Pipeline</h2>
-                <div className="relative max-w-5xl mx-auto px-4">
-                    {/* Connector Line (Desktop) */}
-                    <div className="absolute top-1/2 left-0 w-full h-1 bg-red-100 translate hidden md:block"></div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                        <div className="group">
-                            <div className="card p-6 text-center transition-all group-hover:-translate-y-2">
-                                <div className="text-3xl mb-3">📥</div>
-                                <h4 className="font-bold text-sm mb-2">Ingestion</h4>
-                                <p className="text-[12px] text-gray-400">Loading 70k+ Patient Records</p>
-                            </div>
-                            <div className="mt-4 hidden md:flex justify-center">
-                                <div className="w-10 h-10 rounded-full bg-[var(--bg-card)] text-primary flex items-center justify-center font-bold"
-                                    style={{ boxShadow: "var(--clay-btn-shadow)" }}>
-                                    01</div>
-                            </div>
-                        </div>
-
-                        <div className="group">
-                            <div className="card p-6 text-center transition-all group-hover:-translate-y-2">
-                                <div className="text-3xl mb-3">🧹</div>
-                                <h4 className="font-bold text-sm mb-2">Cleaning</h4>
-                                <p className="text-[12px] text-gray-400">Removing Outliers & Nulls</p>
-                            </div>
-                            <div className="mt-4 hidden md:flex justify-center">
-                                <div className="w-10 h-10 rounded-full bg-[var(--bg-card)] text-primary flex items-center justify-center font-bold"
-                                    style={{ boxShadow: "var(--clay-btn-shadow)" }}>
-                                    02</div>
+            {/* ── Section 1: Model Overview ────────────────────────────────── */}
+            <section className="mb-10 md:mb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* GBM card */}
+                    <div className="card p-8 md:p-10 bg-slate-900 border-none text-white overflow-hidden relative">
+                        <div className="absolute -right-16 -top-16 w-56 h-56 bg-red-500/10 rounded-full blur-3xl" />
+                        <div className="relative z-10">
+                            <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-4">Algorithm</span>
+                            <h2 className="text-3xl font-black mb-4">Gradient Boosting Classifier</h2>
+                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                                We evaluated Logistic Regression, Random Forest, SVM, and Neural Networks.
+                                The <strong className="text-white">Gradient Boosting Classifier</strong> achieved the best
+                                balance of <strong className="text-white">accuracy (73%)</strong> and interpretability —
+                                providing feature importance scores so every prediction is explainable, not a black box.
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                {[
+                                    { label: "Training Samples", val: "49,000+" },
+                                    { label: "Test Samples", val: "21,000" },
+                                    { label: "Input Features", val: "11" },
+                                    { label: "Model Version", val: "v1.0" },
+                                ].map((s) => (
+                                    <div key={s.label} className="p-3 rounded-2xl border border-white/10 text-center">
+                                        <div className="text-xl font-black text-red-400">{s.val}</div>
+                                        <div className="text-[10px] text-slate-500 uppercase font-bold mt-0.5">{s.label}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                    </div>
 
-                        <div className="group">
-                            <div className="card p-6 text-center transition-all group-hover:-translate-y-2">
-                                <div className="text-3xl mb-3">⚙️</div>
-                                <h4 className="font-bold text-sm mb-2">Refinement</h4>
-                                <p className="text-[12px] text-gray-400">Scaling & Category Encoding</p>
-                            </div>
-                            <div className="mt-4 hidden md:flex justify-center">
-                                <div className="w-10 h-10 rounded-full bg-[var(--bg-card)] text-primary flex items-center justify-center font-bold"
-                                    style={{ boxShadow: "var(--clay-btn-shadow)" }}>
-                                    03</div>
-                            </div>
-                        </div>
-
-                        <div className="group">
-                            <div className="card p-6 text-center transition-all group-hover:-translate-y-2">
-                                <div className="text-3xl mb-3">🤖</div>
-                                <h4 className="font-bold text-sm mb-2">Prediction</h4>
-                                <p className="text-[12px] text-primary-light">Gradient Boosting Classifier</p>
-                            </div>
-                            <div className="mt-4 hidden md:flex justify-center">
-                                <div className="w-10 h-10 rounded-full bg-[var(--bg-card)] text-primary flex items-center justify-center font-bold"
-                                    style={{ boxShadow: "var(--clay-btn-shadow)" }}>
-                                    04</div>
-                            </div>
+                    {/* Why GBM */}
+                    <div className="card p-8 md:p-10">
+                        <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-4">Why This Algorithm</span>
+                        <h2 className="text-2xl font-black mb-6">Built for Explainability</h2>
+                        <div className="space-y-4">
+                            {[
+                                { icon: "🌲", title: "Ensemble of Decision Trees", body: "Hundreds of small trees trained sequentially, each correcting the errors of the previous one — resulting in superior accuracy over any single tree." },
+                                { icon: "⚖️", title: "Feature Importance Scores", body: "Each prediction includes ranked feature importances — showing exactly which factors (Blood Pressure, Age, Cholesterol) drove the risk score." },
+                                { icon: "🧮", title: "Handles Mixed Data", body: "Natively handles numeric vitals alongside categorical lifestyle flags without manual one-hot encoding degradation." },
+                            ].map((item) => (
+                                <div key={item.title} className="flex gap-4 p-4 rounded-2xl" style={{ boxShadow: "var(--clay-input-shadow)" }}>
+                                    <div className="text-2xl flex-shrink-0">{item.icon}</div>
+                                    <div>
+                                        <div className="font-bold text-sm mb-1">{item.title}</div>
+                                        <p className="text-[11px] text-secondary leading-relaxed">{item.body}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10 md:mb-20">
-                <div className="card p-10">
-                    <h3 className="text-2xl font-black mb-8">Data Transformation Summary</h3>
-                    <div className="space-y-8">
-                        <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="text-xs font-bold uppercase tracking-widest text-red-400">Raw Data Retention</span>
-                                <span className="text-sm font-black">70,000 → 68,748 Rows</span>
-                            </div>
-                            <div className="w-full bg-red-50 h-3 rounded-full overflow-hidden">
-                                <div className="bg-primary h-full rounded-full" style={{ width: "98%" }}></div>
-                            </div>
-                            <p className="text-[10px] text-gray-400 mt-2">Integrity Check: ~1.8% of data discarded due to
-                                clinical outliers in BP readings.</p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-6 p-6 rounded-[2rem]" style={{ boxShadow: "var(--clay-input-shadow)" }}>
-                            <div>
-                                <div className="text-xs font-bold text-gray-400 uppercase mb-1">Feature Engineering</div>
-                                <div className="text-2xl font-black text-gray-500">11 Features</div>
-                                <p className="text-[10px] mt-1">Demos, Vitals, Lifestyle</p>
-                            </div>
-                            <div className="border-l border-pink-100 pl-6">
-                                <div className="text-xs font-bold text-primary uppercase mb-1">Normalized State</div>
-                                <div className="text-2xl font-black text-primary">11 Vectors</div>
-                                <p className="text-[10px] mt-1 text-primary-dark">Scaled via StandardScaler</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card p-10 bg-slate-900 border-none text-white overflow-hidden relative">
-                    <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-                    <h3 className="text-2xl font-black mb-6 relative z-10">Why Gradient Boosting?</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-8 relative z-10">
-                        We evaluated multiple models including Logistic Regression, Random Forest, and Neural Networks.
-                        The <strong>Gradient Boosting Classifier</strong> was chosen for the best balance of
-                        <strong> accuracy (73%)</strong> and <strong>interpretability</strong>. Unlike black-box
-                        neural networks, gradient boosting provides
-                        <strong> feature importance scores</strong> for explainability:
+            {/* ── Section 2: Features Used ─────────────────────────────────── */}
+            <section className="mb-10 md:mb-16">
+                <div className="text-center mb-8">
+                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-2">Inputs</span>
+                    <h2 className="text-3xl font-black">11 Clinical Features</h2>
+                    <p className="text-secondary mt-2 text-sm max-w-lg mx-auto">
+                        Three categories of patient data — demographics, vitals, and lifestyle — all validated before inference.
                     </p>
-                    <div className="space-y-4 relative z-10">
-                        <div className="flex items-center gap-4 p-4 rounded-2xl border border-white/10"
-                            style={{ boxShadow: "inset 2px 2px 5px rgba(0,0,0,0.5)" }}>
-                            <div className="text-xl">🌲</div>
-                            <div>
-                                <h4 className="text-sm font-bold">Ensemble of Decision Trees</h4>
-                                <p className="text-[10px] text-slate-500">Gradient Boosting combines hundreds of small decision trees sequentially, each correcting the errors of the previous one for superior accuracy.</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 p-4 rounded-2xl border border-white/10"
-                            style={{ boxShadow: "inset 2px 2px 5px rgba(0,0,0,0.5)" }}>
-                            <div className="text-xl">⚖️</div>
-                            <div>
-                                <h4 className="text-sm font-bold">Feature Importance for Explainability</h4>
-                                <p className="text-[10px] text-slate-500">Each prediction comes with feature importance scores — showing exactly which factors (Blood Pressure, Age, Cholesterol) drove the risk assessment, unlike opaque neural networks.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
+                {(["Demographic", "Physical", "Vitals", "Lifestyle"] as const).map((group) => {
+                    const items = FEATURES.filter((f) => f.group === group);
+                    return (
+                        <div key={group} className="mb-6">
+                            <div className="text-[11px] font-black uppercase tracking-widest text-secondary mb-3 pl-1">{group}</div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                {items.map((f) => (
+                                    <div key={f.name} className="card p-4 flex items-center gap-4">
+                                        <div className="text-2xl w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 flex-shrink-0">
+                                            {f.icon}
+                                        </div>
+                                        <div>
+                                            <div className="font-bold text-sm">{f.name}</div>
+                                            <div className="text-[10px] text-secondary">{f.desc}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })}
+            </section>
 
-            {/* Strategy Card */}
-            <section className="card p-6 md:p-12 text-center">
-                <h3 className="text-3xl font-black mb-10">Train–Test Validation Strategy</h3>
-                <div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-4 items-stretch md:h-20 mb-8">
-                    <div className="flex-grow bg-primary text-white flex items-center justify-center font-black rounded-3xl h-16 md:h-full"
-                        style={{ boxShadow: "var(--clay-btn-shadow)" }}>
-                        TRAINING CORE (80%)
-                    </div>
-                    <div className="w-full md:w-32 bg-pink-100 text-primary flex items-center justify-center font-black rounded-3xl h-16 md:h-full"
-                        style={{ boxShadow: "var(--clay-input-shadow)" }}>
-                        TEST SET (20%)
+            {/* ── Section 3: How Prediction Works ─────────────────────────── */}
+            <section className="mb-10 md:mb-16">
+                <div className="text-center mb-8">
+                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-2">Process</span>
+                    <h2 className="text-3xl font-black">How a Prediction Is Made</h2>
+                </div>
+                <div className="relative max-w-4xl mx-auto">
+                    {/* Connector line desktop */}
+                    <div className="absolute top-10 left-0 w-full h-0.5 bg-red-100 hidden md:block" />
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                        {STEPS.map((s) => (
+                            <div key={s.no} className="card p-6 text-center hover:-translate-y-1 transition-all duration-300">
+                                <div className="w-10 h-10 rounded-full bg-red-500 text-white text-xs font-black flex items-center justify-center mx-auto mb-3">
+                                    {s.no}
+                                </div>
+                                <div className="text-2xl mb-2">{s.icon}</div>
+                                <div className="font-black text-sm mb-2">{s.title}</div>
+                                <p className="text-[10px] text-secondary leading-relaxed">{s.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <p className="text-secondary text-sm max-w-xl mx-auto italic">
-                    Our model learned heart patterns from 56,250 patients and was strictly validated against 13,750 unseen
-                    cases (based on confusion matrix summation) to ensure real-world reliability.
-                </p>
+            </section>
+
+            {/* ── Section 4: Static Performance ────────────────────────────── */}
+            <section className="mb-10 md:mb-16">
+                <div className="text-center mb-8">
+                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-2">Performance</span>
+                    <h2 className="text-3xl font-black">Model Performance</h2>
+                    <p className="text-secondary mt-2 text-sm max-w-lg mx-auto">
+                        Evaluated on 21,000 unseen patient records using stratified 70/30 train–test split.
+                    </p>
+                </div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {METRICS.map((m) => (
+                        <div key={m.label} className="card p-6 text-center">
+                            <div className="text-4xl font-black mb-1" style={{ color: m.color }}>{m.value}</div>
+                            <div className="text-sm font-bold mb-1">{m.label}</div>
+                            <div className="text-[10px] text-secondary leading-snug">{m.note}</div>
+                        </div>
+                    ))}
+                </div>
+                {/* Train/test bar */}
+                <div className="card p-6 md:p-10 text-center">
+                    <h3 className="text-xl font-black mb-6">Train–Test Validation Strategy</h3>
+                    <div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-3 h-auto md:h-16 mb-6">
+                        <div className="flex-grow bg-primary text-white flex items-center justify-center font-black rounded-3xl h-14 md:h-full"
+                            style={{ boxShadow: "var(--clay-btn-shadow)" }}>
+                            TRAINING SET (70%) — 49,000 patients
+                        </div>
+                        <div className="w-full md:w-40 bg-red-100 text-primary flex items-center justify-center font-black rounded-3xl h-14 md:h-full"
+                            style={{ boxShadow: "var(--clay-input-shadow)" }}>
+                            TEST SET (30%) — 21,000
+                        </div>
+                    </div>
+                    <p className="text-secondary text-sm max-w-xl mx-auto">
+                        The model never saw the test set during training. Random seed 42 ensures reproducibility.
+                    </p>
+                </div>
+            </section>
+
+            {/* ── Section 5: Limitations & Disclaimer ─────────────────────── */}
+            <section className="card p-8 md:p-10 border-l-4 border-red-400 mb-4">
+                <div className="flex gap-4 items-start">
+                    <div className="text-3xl flex-shrink-0">⚠️</div>
+                    <div>
+                        <h2 className="text-xl font-black mb-3">Limitations & Disclaimer</h2>
+                        <div className="space-y-2 text-sm text-secondary leading-relaxed">
+                            <p>
+                                <strong className="text-[var(--text-main)]">Not a medical diagnosis.</strong>{" "}
+                                CardioCare-AI is an educational and research tool. Results are probabilistic estimates and
+                                should never replace advice from a qualified healthcare professional.
+                            </p>
+                            <p>
+                                <strong className="text-[var(--text-main)]">Dataset scope.</strong>{" "}
+                                The model was trained on a single dataset of 70,000 records. It may not generalise equally
+                                well across all ethnicities, geographies, or clinical settings.
+                            </p>
+                            <p>
+                                <strong className="text-[var(--text-main)]">Known accuracy ceiling.</strong>{" "}
+                                At 73% accuracy, 27% of predictions may be incorrect. A "Low Risk" result does not mean
+                                you are free of cardiovascular disease.
+                            </p>
+                            <p>
+                                <strong className="text-[var(--text-main)]">Always consult a doctor</strong> for formal
+                                cardiovascular risk assessment, especially if you have symptoms or a family history of heart disease.
+                            </p>
+                        </div>
+                        <Link href="/caution" className="inline-flex items-center gap-1 text-red-500 font-bold text-xs mt-4 hover:underline">
+                            Read full caution notice →
+                        </Link>
+                    </div>
+                </div>
             </section>
         </>
     );

@@ -23,7 +23,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
             <div className="hidden md:flex nav-links items-center gap-4">
                 <Link href="/" className={clsx(pathname === "/" && "active")}>Home</Link>
                 <Link href="/predict" className={clsx(pathname === "/predict" && "active")}>Predict</Link>
-                <Link href="/analytics" className={clsx(pathname === "/analytics" && "active")}>Analytics</Link>
+
                 <Link href="/model" className={clsx(pathname === "/model" && "active")}>Model</Link>
                 <Link href="/guidance" className={clsx(pathname === "/guidance" && "active")}>Guidance</Link>
                 <Link href="/about" className={clsx(pathname === "/about" && "active")}>About</Link>

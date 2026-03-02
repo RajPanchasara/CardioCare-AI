@@ -19,9 +19,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
     const onTouchStart = (e: React.TouchEvent) => {
         setTouchEnd(null);
-        // Only trigger if starting from the left edge (0-40px)
-        if (e.targetTouches[0].clientX < 40) {
-            setTouchStart(e.targetTouches[0].clientX);
+        const x = e.targetTouches[0].clientX;
+        // Open: only from left edge (≤50px). Close: anywhere when sidebar is open.
+        if (x <= 50 || isSidebarOpen) {
+            setTouchStart(x);
         } else {
             setTouchStart(null);
         }
@@ -31,12 +32,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
     const onTouchEnd = () => {
         if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isRightSwipe) {
-            setIsSidebarOpen(true);
-        }
+        const distance = touchStart - touchEnd; // positive = left swipe
+        if (distance < -minSwipeDistance && !isSidebarOpen) setIsSidebarOpen(true);   // right swipe → open
+        if (distance > minSwipeDistance && isSidebarOpen) setIsSidebarOpen(false);    // left swipe → close
     };
 
     return (

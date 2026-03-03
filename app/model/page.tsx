@@ -336,16 +336,16 @@ export default function Model() {
             {/* ── Section 1: Model Overview ───────────────────────────────── */}
             <section className="mb-10 md:mb-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* GBM card */}
-                    <div className="card p-8 md:p-10 bg-slate-900 border-none text-white overflow-hidden relative">
+                     {/* GBM card */}
+                    <div className="card p-8 md:p-10 overflow-hidden relative border-l-4 border-red-500">
                         <div className="absolute -right-16 -top-16 w-56 h-56 bg-red-500/10 rounded-full blur-3xl" />
                         <div className="relative z-10">
                             <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-4">Algorithm</span>
-                            <h2 className="text-3xl font-black mb-4">Gradient Boosting Classifier</h2>
-                            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                            <h2 className="text-3xl font-black mb-4 text-[var(--text-main)]">Gradient Boosting Classifier</h2>
+                            <p className="text-secondary text-sm leading-relaxed mb-6">
                                 We evaluated Logistic Regression, Random Forest, SVM, and Neural Networks.
-                                The <strong className="text-white">Gradient Boosting Classifier</strong> achieved
-                                the best balance of <strong className="text-white">accuracy (73%)</strong> and
+                                The <strong className="text-primary">Gradient Boosting Classifier</strong> achieved
+                                the best balance of <strong className="text-primary">accuracy (73%)</strong> and
                                 interpretability — every prediction comes with feature importance scores.
                             </p>
                             <div className="grid grid-cols-2 gap-4">
@@ -529,3 +529,4 @@ export default function Model() {
         </>
     );
 }
+

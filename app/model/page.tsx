@@ -336,7 +336,7 @@ export default function Model() {
             {/* ── Section 1: Model Overview ───────────────────────────────── */}
             <section className="mb-10 md:mb-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                     {/* GBM card */}
+                    {/* GBM card */}
                     <div className="card p-8 md:p-10 overflow-hidden relative border-l-4 border-red-500">
                         <div className="absolute -right-16 -top-16 w-56 h-56 bg-red-500/10 rounded-full blur-3xl" />
                         <div className="relative z-10">
@@ -355,9 +355,9 @@ export default function Model() {
                                     { label: "Input Features", val: "11" },
                                     { label: "Model Version", val: "v1.0" },
                                 ].map((s) => (
-                                    <div key={s.label} className="p-3 rounded-2xl border border-white/10 text-center">
+                                    <div key={s.label} className="p-3 rounded-2xl border border-[var(--border,rgba(0,0,0,0.08))] text-center">
                                         <div className="text-xl font-black text-red-400">{s.val}</div>
-                                        <div className="text-[10px] text-slate-500 uppercase font-bold mt-0.5">{s.label}</div>
+                                        <div className="text-[10px] text-secondary uppercase font-bold mt-0.5">{s.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -529,4 +529,3 @@ export default function Model() {
         </>
     );
 }
-

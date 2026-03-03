@@ -145,3 +145,4 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
         </>
     );
 }
+

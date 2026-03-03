@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import Navbar from "./Navbar";
@@ -37,12 +37,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         if (distance > minSwipeDistance && isSidebarOpen) setIsSidebarOpen(false);    // left swipe → close
     };
 
-    // Lock body scroll when sidebar is open (prevents scroll-through on mobile)
-    useEffect(() => {
-        document.body.style.overflow = isSidebarOpen ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
-    }, [isSidebarOpen]);
-
     return (
         <div
             className="h-[100dvh] flex flex-col relative overflow-hidden bg-[var(--bg-main)]"
@@ -50,7 +44,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
         >
-            <MobileHeader isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(prev => !prev)} />
+            <MobileHeader />
             <Navbar onOpenSidebar={() => setIsSidebarOpen(true)} />
 
             {/* Scrollable Content Area */}

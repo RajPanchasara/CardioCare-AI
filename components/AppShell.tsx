@@ -44,7 +44,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
         >
-            <MobileHeader />
+            <MobileHeader isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen(prev => !prev)} />
             <Navbar onOpenSidebar={() => setIsSidebarOpen(true)} />
 
             {/* Scrollable Content Area */}

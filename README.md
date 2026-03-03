@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://img.shields.io/badge/Cardio Care-AI-red?style=for-the-badge&logo=heart&logoColor=white" alt="CardioCare-AI" />
+  <img src="https://img.shields.io/badge/CardioCare-AI-red?style=for-the-badge&logo=heart&logoColor=white" alt="CardioCare-AI" />
 </h1>
 
 <p align="center">
@@ -15,6 +15,12 @@
   <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss" />
   <img src="https://img.shields.io/badge/Scikit--Learn-GBM-orange?style=flat-square&logo=scikitlearn" />
   <img src="https://img.shields.io/badge/Deployed-Render%20%2B%20Vercel-success?style=flat-square" />
+</p>
+
+<p align="center">
+  <a href="https://cardio-care-ai-18.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-cardio--care--ai--18.vercel.app-red?style=for-the-badge" alt="Live Demo" />
+  </a>
 </p>
 
 ---
@@ -40,7 +46,7 @@
 
 ## 🫀 Overview
 
-**HeartSense AI** is a full-stack web application that predicts cardiovascular disease risk using a trained **Gradient Boosting Machine (GBM)** model. Users input clinical features such as age, blood pressure, cholesterol, and lifestyle habits to receive an instant, probability-based risk assessment along with personalized health tips and feature explainability.
+**CardioCare-AI** is a full-stack web application that predicts cardiovascular disease risk using a trained **Gradient Boosting Machine (GBM)** model. Users input clinical features such as age, blood pressure, cholesterol, and lifestyle habits to receive an instant, probability-based risk assessment along with personalized health tips and feature explainability.
 
 The platform is designed with **ethical AI principles** — providing a transparent risk profile, not a diagnosis — and is deployed as a production-grade system with rate limiting, audit logging, CORS, and security headers.
 
@@ -93,7 +99,7 @@ The platform is designed with **ethical AI principles** — providing a transpar
 ## 📁 Project Structure
 
 ```
-HeartSense_main/
+CardioCare-AI/
 ├── app/                        # Next.js App Router pages
 │   ├── page.tsx                # Landing / home page
 │   ├── predict/page.tsx        # Prediction form & results
@@ -186,7 +192,7 @@ HeartSense_main/
 
 ## 📡 API Reference
 
-Base URL: `https://heartsense-backend.onrender.com` (production) or `http://localhost:5000` (local)
+Base URL: `https://cardiocare-backend.onrender.com` (production) or `http://localhost:5000` (local)
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -205,7 +211,7 @@ Base URL: `https://heartsense-backend.onrender.com` (production) or `http://loca
 ### Example: Prediction Request
 
 ```bash
-curl -X POST https://heartsense-backend.onrender.com/api/predict \
+curl -X POST https://cardiocare-backend.onrender.com/api/predict \
   -H "Content-Type: application/json" \
   -d '{
     "age": 45,
@@ -350,7 +356,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000   # or your Render backend URL
 
 ## ⚠️ Disclaimer
 
-HeartSense AI is an **educational and research tool** and is **not a substitute for professional medical advice, diagnosis, or treatment**. Always consult a qualified healthcare provider for medical decisions.
+CardioCare-AI is an **educational and research tool** and is **not a substitute for professional medical advice, diagnosis, or treatment**. Always consult a qualified healthcare provider for medical decisions.
 
 ---
 
@@ -362,5 +368,5 @@ This project is licensed under the **MIT License**.
 
 <p align="center">
   Made with ❤️ for cardiovascular health awareness.<br/>
-  <b>HeartSense AI &mdash; Designed to Care, Built to Predict.</b>
+  <b>CardioCare-AI &mdash; Designed to Care, Built to Predict.</b>
 </p>

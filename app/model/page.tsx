@@ -403,8 +403,8 @@ export default function Model() {
                             <div className="text-[11px] font-black uppercase tracking-widest text-secondary mb-3 pl-1">{group}</div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                 {items.map((f) => (
-                                    <div key={f.name} className="card p-4 flex items-center gap-4">
-                                        <div className="text-2xl w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 flex-shrink-0">
+                                    <div key={f.name} className="card p-2.5 flex items-center gap-3">
+                                        <div className="text-xl w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 flex-shrink-0">
                                             {f.icon}
                                         </div>
                                         <div>

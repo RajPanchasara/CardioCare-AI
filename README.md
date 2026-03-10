@@ -25,7 +25,7 @@
 
 <p align="center">
   <a href="https://github.com/RajPanchasara/CardioCare-AI_BackEnd" target="_blank">
-    <img src="https://img.shields.io/badge/Git%20Link-CardioCare--AI--BackEnd-181717?style=for-the-badge&logo=github&logoColor=white" alt="BackEnd_Code" />
+    <img src="https://img.shields.io/badge/Git%20Link-CardioCare--AI--BackEnd-blue?style=for-the-badge&logo=github&logoColor=white" alt="BackEnd_Code" />
   </a>
 </p>
 

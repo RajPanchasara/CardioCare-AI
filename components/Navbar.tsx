@@ -27,6 +27,7 @@ export default function Navbar({ onOpenSidebar }: NavbarProps) {
                 <Link href="/model" className={clsx(pathname === "/model" && "active")}>Model</Link>
                 <Link href="/guidance" className={clsx(pathname === "/guidance" && "active")}>Guidance</Link>
                 <Link href="/about" className={clsx(pathname === "/about" && "active")}>About</Link>
+                <Link href="/caution" className={clsx(pathname === "/caution" && "active")}>Caution</Link>
                 <Link href="/contact" className={clsx(pathname === "/contact" && "active")}>Contact</Link>
                 <button className="theme-toggle-btn ml-4" aria-label="Toggle Theme" onClick={toggleTheme}>
                     <svg className="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

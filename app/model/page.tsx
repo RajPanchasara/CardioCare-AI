@@ -387,36 +387,27 @@ export default function Model() {
                 </div>
             </section>
 
-            {/* ── Section 2: Features ─────────────────────────────────────── */}
-            <section className="mb-10 md:mb-16">
-                <div className="text-center mb-8">
-                    <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-2">Inputs</span>
-                    <h2 className="text-3xl font-black">11 Clinical Features</h2>
-                    <p className="text-secondary mt-2 text-sm max-w-lg mx-auto">
-                        Three categories of patient data — all validated before inference.
-                    </p>
-                </div>
-                {(["Demographic", "Physical", "Vitals", "Lifestyle"] as const).map((group) => {
-                    const items = FEATURES.filter((f) => f.group === group);
-                    return (
-                        <div key={group} className="mb-6">
-                            <div className="text-[11px] font-black uppercase tracking-widest text-secondary mb-3 pl-1">{group}</div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {items.map((f) => (
-                                    <div key={f.name} className="card p-2.5 flex items-center gap-3">
-                                        <div className="text-xl w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 flex-shrink-0">
-                                            {f.icon}
-                                        </div>
-                                        <div>
-                                            <div className="font-bold text-sm">{f.name}</div>
-                                            <div className="text-[10px] text-secondary">{f.desc}</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+            {/* ── Section 2: Features (Compact) ────────────────────────────── */}
+            <section className="mb-10 md:mb-10">
+                <div className="card p-6 md:p-8">
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <span className="inline-block text-xs font-bold uppercase tracking-widest text-red-400 mb-1">Inputs</span>
+                            <h2 className="text-2xl font-black">11 Clinical Features</h2>
                         </div>
-                    );
-                })}
+                        <span className="text-[10px] text-secondary italic hidden sm:block">Demographic · Physical · Vitals · Lifestyle</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {FEATURES.map((f) => (
+                            <div key={f.name} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium"
+                                style={{ boxShadow: "var(--clay-input-shadow)" }}>
+                                <span className="text-base">{f.icon}</span>
+                                <span>{f.name}</span>
+                                <span className="text-[9px] text-secondary hidden md:inline">({f.desc})</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {/* ── Section 3: How It Works ─────────────────────────────────── */}

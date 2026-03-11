@@ -11,6 +11,73 @@ import VitalsCards from "@/components/analytics/VitalsCards";
 type PredictionState = "IDLE" | "LOADING" | "SUCCESS";
 type BackendState = "CHECKING" | "ONLINE" | "OFFLINE";
 
+
+const LOADING_MESSAGES = [
+    { icon: "🔗", text: "Connecting to CardioCare Neural Engine" },
+    { icon: "🧬", text: "Preprocessing clinical parameters" },
+    { icon: "🤖", text: "Running Gradient Boosting inference" },
+    { icon: "📊", text: "Generating cardiovascular report" },
+];
+
+// Steps advance quickly (600→800→1200ms). Last step stays until backend responds.
+// The progress bar fills proportionally and the whole component unmounts instantly on success.
+function LoadingSteps() {
+    const [step, setStep] = React.useState(0);
+    const stepDelays = [600, 800, 1200]; // ms before advancing to next step
+
+    React.useEffect(() => {
+        if (step >= LOADING_MESSAGES.length - 1) return; // stay on last step
+        const delay = stepDelays[step] || 1000;
+        const id = setTimeout(() => setStep((s) => s + 1), delay);
+        return () => clearTimeout(id);
+    }, [step]);
+
+    const msg = LOADING_MESSAGES[step];
+    const progress = ((step + 1) / LOADING_MESSAGES.length) * 100;
+    // On last step, cap at 90% — the final 10% fills when result arrives
+    const barWidth = step >= LOADING_MESSAGES.length - 1 ? 90 : progress;
+
+    return (
+        <div className="flex flex-col items-center gap-4 min-h-[80px]">
+            {/* Step indicators */}
+            <div className="flex items-center gap-1.5">
+                {LOADING_MESSAGES.map((_, i) => (
+                    <div key={i} className={clsx(
+                        "w-2 h-2 rounded-full transition-all duration-500",
+                        i < step ? "bg-green-500 scale-100" :
+                        i === step ? "bg-red-500 scale-125 animate-pulse" :
+                        "bg-gray-300 scale-75"
+                    )} />
+                ))}
+            </div>
+
+            {/* Current step message */}
+            <div className="flex items-center gap-2 text-secondary animate-pulse">
+                <span className="text-xl">{msg.icon}</span>
+                <span className="text-sm font-medium">{msg.text}</span>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-56 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                    className="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full transition-all duration-700 ease-out"
+                    style={{ width: `${barWidth}%` }}
+                />
+            </div>
+
+            {/* Completed steps */}
+            <div className="flex flex-col gap-1 mt-1">
+                {LOADING_MESSAGES.slice(0, step).map((m, i) => (
+                    <div key={i} className="flex items-center gap-1.5 text-[11px] text-green-600 font-medium">
+                        <span>✓</span>
+                        <span>{m.text}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default function Predict() {
     const [status, setStatus] = useState<PredictionState>("IDLE");
     const [backendStatus, setBackendStatus] = useState<BackendState>("CHECKING");
@@ -304,15 +371,31 @@ export default function Predict() {
 
                 {/* LOADING */}
                 {status === "LOADING" && (
-                    <div className="card h-full min-h-[500px] flex flex-col items-center justify-center">
-                        <div className="w-full max-w-md h-32 relative mb-8">
-                            <svg className="w-full h-full" viewBox="0 0 100 20">
-                                <path className="ecg-line fill-none stroke-red-500 stroke-2"
-                                    d="M0,10 L10,10 L13,2 L17,18 L20,10 L30,10 L33,2 L37,18 L40,10 L50,10 L53,2 L57,18 L60,10 L70,10 L73,2 L77,18 L80,10 L100,10" />
+                    <div className="card h-full min-h-[500px] flex flex-col items-center justify-center p-8">
+                        {/* Pulsing heart */}
+                        <div className="relative mb-8">
+                            <div className="text-7xl animate-pulse">🫀</div>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-28 h-28 border-4 border-red-400/30 rounded-full animate-ping" />
+                            </div>
+                        </div>
+
+                        {/* ECG line */}
+                        <div className="w-full max-w-md h-20 relative mb-6 overflow-hidden">
+                            <svg className="w-[200%] h-full animate-ecg-scroll" viewBox="0 0 200 20" preserveAspectRatio="none">
+                                <path className="fill-none stroke-red-500 stroke-[1.5]" strokeLinecap="round" strokeLinejoin="round"
+                                    d="M0,10 L10,10 L13,2 L17,18 L20,10 L30,10 L33,2 L37,18 L40,10 L50,10 L53,2 L57,18 L60,10 L70,10 L73,2 L77,18 L80,10 L90,10 L93,2 L97,18 L100,10 L110,10 L113,2 L117,18 L120,10 L130,10 L133,2 L137,18 L140,10 L150,10 L153,2 L157,18 L160,10 L170,10 L173,2 L177,18 L180,10 L200,10" />
                             </svg>
                         </div>
-                        <h3 className="text-2xl font-bold mb-2">Analyzing Bio-Markers...</h3>
-                        <p className="text-secondary animate-pulse italic">Connecting to CardioCare Neural Engine</p>
+
+                        <h3 className="text-2xl font-bold mb-3">Analyzing Bio-Markers...</h3>
+
+                        {/* Rotating status messages */}
+                        <LoadingSteps />
+
+                        <p className="text-secondary text-xs mt-6 max-w-xs text-center italic">
+                            First prediction may take 30–60s if the AI engine is cold-starting.
+                        </p>
                     </div>
                 )}
 

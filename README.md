@@ -354,21 +354,9 @@ NEXT_PUBLIC_API_URL=http://localhost:5000   # or your Render backend URL
 
 ---
 
-## 📸 Screenshots
-
-> _Screenshots of the Prediction Page, Analytics Dashboard, and History view can be added here._
-
----
-
 ## ⚠️ Disclaimer
 
 CardioCare-AI is an **educational and research tool** and is **not a substitute for professional medical advice, diagnosis, or treatment**. Always consult a qualified healthcare provider for medical decisions.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
 
 ---
 
